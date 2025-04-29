@@ -8,6 +8,7 @@ export default function Home(){
     const [result, setResult] = useState(null);
     const [graphData, setGraphData] = useState(null);
     const [objective, setObjective] = useState({ x: "", y: "" });
+    const [type, setType] = useState('max')
     const [constraints, setConstraints] = useState([
       { x: "", y: "", sign: "<=", value: "" },
     ]);
@@ -21,6 +22,10 @@ export default function Home(){
       const newConstraints = [...constraints];
       newConstraints[index][e.target.name] = e.target.value;
       setConstraints(newConstraints);
+    };
+
+    const handleTypeChange = (e) => {
+        setType(e.target.value);
     };
   
     const addConstraint = () => {
@@ -71,6 +76,15 @@ export default function Home(){
               required
             /> y 
           </div>
+
+          <select
+            name="type"
+            value={type}
+            onChange={(e) => handleTypeChange(e)}
+            >
+            <option value="max">{"Maximizar"}</option>
+            <option value="min">{"Minimizar"}</option>
+        </select>
   
           <h2>Restrições</h2>
           {constraints.map((constraint, index) => (

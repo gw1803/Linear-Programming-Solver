@@ -21,7 +21,7 @@ export default function Results({ result }) {
             </thead>
             <tbody>
               {feasiblePoints.map((point, idx) => (
-                <tr key={idx} style={point.z === optimalPoint.z ? { backgroundColor: "#d1ffd1", fontWeight: "bold" } : {}}>
+                <tr key={idx} style={point.z === optimalPoint.z ? { backgroundColor: "#d1ffd1", fontWeight: "bold", color:"black"} : {}}>
                   <td>{point.x.toFixed(2)}</td>
                   <td>{point.y.toFixed(2)}</td>
                   <td>{point.z.toFixed(2)}</td>
