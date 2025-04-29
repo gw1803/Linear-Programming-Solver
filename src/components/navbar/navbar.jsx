@@ -7,11 +7,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import AccountBalance from '@mui/icons-material/AccountBalance';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +43,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Ennergy Bill
+            Linear Programming
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -75,17 +72,8 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              <MenuItem key="Bills" onClick={handleCloseNavMenu}>
-                <Link to="/bill/list">
-                  <Typography sx={{ color: 'black', textAlign: 'center' }}>Bills</Typography>
-                </Link>
-              </MenuItem>
-
-              <MenuItem key='Person' onClick={handleCloseNavMenu}>
-                <Link to="/person/list">
-                  <Typography sx={{ color: 'black', textAlign: 'center' }}>Person</Typography>
-                </Link>
-              </MenuItem>
+              
+            
 
             </Menu>
           </Box>
@@ -94,7 +82,6 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -107,25 +94,7 @@ function ResponsiveAppBar() {
             Ennergy Bills
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Link to="/bill/list">
-              <Button
-                key="Bills"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Bills
-              </Button>
-            </Link>
-
-            <Link to="/person/list">
-              <Button
-                key="Person"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Person
-              </Button>
-            </Link>
+            
           </Box>
 
         </Toolbar>
