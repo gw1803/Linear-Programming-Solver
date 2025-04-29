@@ -40,7 +40,7 @@ export default function Home(){
   
       const handleSubmit = e => {
         e.preventDefault();
-        const data = { objective, constraints };
+        const data = { objective, constraints, type, method};
         if (method === 'math') {
           setGraphData(null);
           setResult(solveByMath(data));
