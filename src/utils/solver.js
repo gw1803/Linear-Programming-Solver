@@ -20,7 +20,6 @@ export function solveByMath(data, type = 'max') {
     for (let j = i + 1; j < constraints.length; j++) {
       const c1 = constraints[i];
       const c2 = constraints[j];
-
       const A = math.matrix([
         [parseFloat(c1.x), parseFloat(c1.y)],
         [parseFloat(c2.x), parseFloat(c2.y)],
@@ -32,13 +31,14 @@ export function solveByMath(data, type = 'max') {
       ]);
 
       try {
-        const result = math.lusolve(A, B);
+        const result = math.lusolve(A, B).toArray();
         const x = math.round(result[0][0], 6);
         const y = math.round(result[1][0], 6);
-
+        
         // Só considera pontos com valores reais e finitos
         if (Number.isFinite(x) && Number.isFinite(y)) {
           intersections.push({ x, y });
+          
         }
       } catch (error) {
         // Sistemas sem solução ou degenerados são ignorados
@@ -46,7 +46,6 @@ export function solveByMath(data, type = 'max') {
       }
     }
   }
-
   // 2. Adicionar interseções com eixos x = 0 e y = 0 (restrições não-negativas)
   for (const c of constraints) {
     if (parseFloat(c.y) !== 0) {

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { solveByMath } from '../utils/solver';
+import Results from "../components/Results";
+//import './Home.css';
 
 export default function Home(){
+    const [result, setResult] = useState(null);
     const [objective, setObjective] = useState({ x: "", y: "" });
     const [constraints, setConstraints] = useState([
       { x: "", y: "", sign: "<=", value: "" },
@@ -21,6 +24,12 @@ export default function Home(){
     const addConstraint = () => {
       setConstraints([...constraints, { x: "", y: "", sign: "<=", value: "" }]);
     };
+
+    const removeLastConstraint = () => {
+        if (constraints.length > 1) {
+          setConstraints(constraints.slice(0, -1));
+        }
+      };
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -30,9 +39,8 @@ export default function Home(){
         method,
       };
       if (method === "math") {
-        const result = solveByMath(parsedData);
-        console.log("Resultado:", result);
-        // aqui você pode salvar no estado e exibir depois
+        const res = solveByMath(parsedData);
+        setResult(res);
       }
     };
 
@@ -43,6 +51,7 @@ export default function Home(){
         <form onSubmit={handleSubmit}>
           <h2>Função Objetivo</h2>
           <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+            F = 
             <input
               type="number"
               name="x"
@@ -50,7 +59,7 @@ export default function Home(){
               value={objective.x}
               onChange={handleObjectiveChange}
               required
-            />
+            /> x + 
             <input
               type="number"
               name="y"
@@ -58,7 +67,7 @@ export default function Home(){
               value={objective.y}
               onChange={handleObjectiveChange}
               required
-            />
+            /> y 
           </div>
   
           <h2>Restrições</h2>
@@ -102,9 +111,10 @@ export default function Home(){
               />
             </div>
           ))}
-          <button type="button" onClick={addConstraint}>
-            + Adicionar restrição
-          </button>
+          <button type="button" onClick={addConstraint}> Adicionar restrição </button>
+
+          <button type="button" onClick={removeLastConstraint} style={{ marginLeft: "1rem" }}> Remover última restrição </button>
+
   
           <h2>Método</h2>
           <label>
@@ -132,6 +142,7 @@ export default function Home(){
             <button type="submit">Resolver</button>
           </div>
         </form>
+        <Results result={result} />
       </div>
     );
 
