@@ -9,12 +9,13 @@ const math = create(all);
  * @param {Array} data.constraints - [{ x, y, sign, value }]
  * @param {string} type - "max" ou "min" (por enquanto assumiremos max)
  * @returns {Object} resultado
- */
-export function solveByMath(data, type = 'max') {
-  const { objective, constraints } = data;
+ */ 
+export function solveByMath(data) {
+  const { objective, constraints, type} = data;
 
   // 1. Gerar todas as combinações de 2 restrições
   const intersections = [];
+
 
   for (let i = 0; i < constraints.length; i++) {
     for (let j = i + 1; j < constraints.length; j++) {
@@ -63,6 +64,8 @@ export function solveByMath(data, type = 'max') {
       });
     }
   }
+
+  intersections.push({x:0, y:0})
 
   // 3. Verifica quais interseções satisfazem todas as restrições
   const feasiblePoints = intersections.filter((p) => {
