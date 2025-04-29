@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { solveByMath } from '../utils/solver';
+import { solveByMath, solveByGraph } from '../utils/solver';
 import Results from "../components/Results";
-//import './Home.css';
+import Graph from "../components/Graph";
+
 
 export default function Home(){
     const [result, setResult] = useState(null);
+    const [graphData, setGraphData] = useState(null);
     const [objective, setObjective] = useState({ x: "", y: "" });
     const [constraints, setConstraints] = useState([
       { x: "", y: "", sign: "<=", value: "" },
@@ -31,18 +33,18 @@ export default function Home(){
         }
       };
   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const parsedData = {
-        objective,
-        constraints,
-        method,
+      const handleSubmit = e => {
+        e.preventDefault();
+        const data = { objective, constraints };
+        if (method === 'math') {
+          setGraphData(null);
+          setResult(solveByMath(data));
+        } else {
+          const graphRes = solveByGraph(data);
+          setResult({ ...graphRes, feasiblePoints: graphRes.points, optimalPoint: graphRes.optimal, message: 'Método gráfico result.' });
+          setGraphData(graphRes);
+        }
       };
-      if (method === "math") {
-        const res = solveByMath(parsedData);
-        setResult(res);
-      }
-    };
 
     return(
         
@@ -143,6 +145,7 @@ export default function Home(){
           </div>
         </form>
         <Results result={result} />
+        {graphData && <Graph {...graphData} />}
       </div>
     );
 
